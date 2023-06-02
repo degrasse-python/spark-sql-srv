@@ -32,6 +32,8 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # Verify username and password for authentication
 def verify_credentials(username: str, password: str):
+    """
+    """
     if username == USER_CREDENTIALS["username"] and verify_password(password, USER_CREDENTIALS["password"]):
         return True
     else:
@@ -39,19 +41,27 @@ def verify_credentials(username: str, password: str):
 
 # Verify password
 def verify_password(plain_password, hashed_password):
+    """
+    """
     return pwd_context.verify(plain_password, hashed_password)
 
 # Hash password
 def get_password_hash(password):
+    """
+    """
     return pwd_context.hash(password)
 
 # Define token response model
 class Token(BaseModel):
+    """
+    """
     access_token: str
     token_type: str
 
 # Generate access token
 def generate_token(username: str, password: str):
+    """
+    """
     if verify_credentials(username, password):
         access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token_subject = username
@@ -68,6 +78,8 @@ def generate_token(username: str, password: str):
 
 # Create access token
 def create_access_token(data: dict, expires_delta: timedelta = None):
+    """
+    """
     to_encode = data.copy()
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
@@ -79,6 +91,8 @@ def create_access_token(data: dict, expires_delta: timedelta = None):
 
 # Decode access token
 def decode_access_token(token: str):
+    """
+    """
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         username = payload.get("sub")
@@ -95,6 +109,8 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 # Example route to interact with the Spark SQL server
 @app.get("/query", dependencies=[Depends(oauth2_scheme)])
 async def run_query(token: str, query: str):
+    """
+    """
     # Check the validity of the access token
     if not verify_token(token):
         raise HTTPException(
@@ -113,6 +129,8 @@ async def run_query(token: str, query: str):
 
 # Verify access token
 def verify_token(token: str):
+    """
+    """
     username = decode_access_token(token)
     # Your token verification logic here
     # You can check if the token is valid and belongs to a valid user

@@ -17,6 +17,10 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
 # Verify username and password for authentication
 def verify_credentials(username: str, password: str):
+    """
+    
+    
+    """
     correct_username = "your_username"
     correct_password = "your_password"
     if username == correct_username and password == correct_password:
@@ -31,6 +35,8 @@ class Token(BaseModel):
 
 # Generate access token
 def generate_token(username: str, password: str):
+    """
+    """
     if verify_credentials(username, password):
         return Token(access_token=username, token_type="bearer")
     else:
@@ -43,6 +49,8 @@ def generate_token(username: str, password: str):
 # Define the route to generate access token
 @app.post("/token", response_model=Token)
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    """
+    """
     token = generate_token(form_data.username, form_data.password)
     return token
 
@@ -50,6 +58,8 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
 @app.post("/concatenate")
 async def concatenate_data(data: str,
                             token: str = Depends(oauth2_scheme)):
+    """
+    """
     # Check the validity of the access token
     if token != "your_username":
         raise HTTPException(
