@@ -23,7 +23,7 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 USER_CREDENTIALS = {"username": "admin", "password": "password"}
 
 # JWT settings
-SECRET_KEY = "your-secret-key"  # Change this to a secure secret key
+SECRET_KEY = "WHODOESTHIS"  # Change this to a secure secret key
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
