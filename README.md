@@ -11,3 +11,6 @@ This example is a clear simple example of ML Ops which takes data from a service
 How do you adoption this tool do you ask? Simple: fork this repo and switch my pipeline with yours and my training model with yours. You should find that even this isn't a cookie cutter example that you should be able to tackle it no problem.
 
 
+PR1
+
+
